@@ -18,7 +18,7 @@ use Sub::Exporter -setup =>
 	};
 	
 use vars qw ($VERSION);
-$VERSION     = '0.01_01';
+$VERSION     = '0.02';
 }
 
 #-------------------------------------------------------------------------------
@@ -52,27 +52,17 @@ Text::Colorizer - Create colored text from text and color descrition. An ANSI to
 		FORMAT => 'HTML' | 'ANSI' |'ASCII',
 
 		DEFAULT_COLOR => 'bright_white on_black',
-		COLOR => 'cycle'| 'bw',
-		COLORS =>
+		COLOR_NAMES => 
 			{
-			ASCII => [],
-			ANSI => ['white', 'bright_green', 'bright_yellow','bright_cyan', 'bright_red' ],
-			HTML => ['white', 'bright_green', 'bright_yellow','bright_cyan', 'bright_red' ],
-			},
-				
-		COLOR_NAMES - A hash reference
-
-			COLOR_NAMES => 
+			HTML =>
 				{
-				HTML =>
-					{
-					white => "color:#888;",
-					black => "color:#000;",
-					...
-					}
-				ANSI => ...
-				ASCII => ...
+				white => "color:#888;",
+				black => "color:#000;",
+				...
 				}
+			ANSI => ...
+			ASCII => ...
+			}
 		) ;
 
   # or 
@@ -106,12 +96,55 @@ Valid colors:
   on_bright_black  on_bright_red      on_bright_green  on_bright_yellow
   on_bright_blue   on_bright_magenta  on_bright_cyan   on_bright_white
 
-Todo: insert a color chart in this document.
+=begin html
 
-Todo: allow user to add her own generator
+<pre style ="font-family: monospace; background-color: #000 ;">
+<span style = ' color:#fff; '>
+</span><span style = ''>                </span><span style = ' color:#fff; '>on_white        </span><span style = ' color:#fff; '>on_black        </span><span style = ' color:#fff; '>on_green        </span><span style = ' color:#fff; '>on_yellow       </span><span style = ' color:#fff; '>on_cyan         </span><span style = ' color:#fff; '>on_red          </span><span style = ' color:#fff; '>on_blue         </span><span style = ' color:#fff; '>on_magenta      </span><span style = ' color:#fff; '>
+</span><span style = ' color:#fff; '>white           </span><span style = ' color:#888;  background-color:#888; '>text            </span><span style = ' color:#888;  background-color:#000; '>text            </span><span style = ' color:#888;  background-color:#080; '>text            </span><span style = ' color:#888;  background-color:#880; '>text            </span><span style = ' color:#888;  background-color:#088; '>text            </span><span style = ' color:#888;  background-color:#800; '>text            </span><span style = ' color:#888;  background-color:#008; '>text            </span><span style = ' color:#888;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>black           </span><span style = ' color:#000;  background-color:#888; '>text            </span><span style = ' color:#000;  background-color:#000; '>text            </span><span style = ' color:#000;  background-color:#080; '>text            </span><span style = ' color:#000;  background-color:#880; '>text            </span><span style = ' color:#000;  background-color:#088; '>text            </span><span style = ' color:#000;  background-color:#800; '>text            </span><span style = ' color:#000;  background-color:#008; '>text            </span><span style = ' color:#000;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>green           </span><span style = ' color:#080;  background-color:#888; '>text            </span><span style = ' color:#080;  background-color:#000; '>text            </span><span style = ' color:#080;  background-color:#080; '>text            </span><span style = ' color:#080;  background-color:#880; '>text            </span><span style = ' color:#080;  background-color:#088; '>text            </span><span style = ' color:#080;  background-color:#800; '>text            </span><span style = ' color:#080;  background-color:#008; '>text            </span><span style = ' color:#080;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>yellow          </span><span style = ' color:#880;  background-color:#888; '>text            </span><span style = ' color:#880;  background-color:#000; '>text            </span><span style = ' color:#880;  background-color:#080; '>text            </span><span style = ' color:#880;  background-color:#880; '>text            </span><span style = ' color:#880;  background-color:#088; '>text            </span><span style = ' color:#880;  background-color:#800; '>text            </span><span style = ' color:#880;  background-color:#008; '>text            </span><span style = ' color:#880;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>cyan            </span><span style = ' color:#088;  background-color:#888; '>text            </span><span style = ' color:#088;  background-color:#000; '>text            </span><span style = ' color:#088;  background-color:#080; '>text            </span><span style = ' color:#088;  background-color:#880; '>text            </span><span style = ' color:#088;  background-color:#088; '>text            </span><span style = ' color:#088;  background-color:#800; '>text            </span><span style = ' color:#088;  background-color:#008; '>text            </span><span style = ' color:#088;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>red             </span><span style = ' color:#800;  background-color:#888; '>text            </span><span style = ' color:#800;  background-color:#000; '>text            </span><span style = ' color:#800;  background-color:#080; '>text            </span><span style = ' color:#800;  background-color:#880; '>text            </span><span style = ' color:#800;  background-color:#088; '>text            </span><span style = ' color:#800;  background-color:#800; '>text            </span><span style = ' color:#800;  background-color:#008; '>text            </span><span style = ' color:#800;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>blue            </span><span style = ' color:#008;  background-color:#888; '>text            </span><span style = ' color:#008;  background-color:#000; '>text            </span><span style = ' color:#008;  background-color:#080; '>text            </span><span style = ' color:#008;  background-color:#880; '>text            </span><span style = ' color:#008;  background-color:#088; '>text            </span><span style = ' color:#008;  background-color:#800; '>text            </span><span style = ' color:#008;  background-color:#008; '>text            </span><span style = ' color:#008;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>magenta         </span><span style = ' color:#808;  background-color:#888; '>text            </span><span style = ' color:#808;  background-color:#000; '>text            </span><span style = ' color:#808;  background-color:#080; '>text            </span><span style = ' color:#808;  background-color:#880; '>text            </span><span style = ' color:#808;  background-color:#088; '>text            </span><span style = ' color:#808;  background-color:#800; '>text            </span><span style = ' color:#808;  background-color:#008; '>text            </span><span style = ' color:#808;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_white    </span><span style = ' color:#fff;  background-color:#888; '>text            </span><span style = ' color:#fff;  background-color:#000; '>text            </span><span style = ' color:#fff;  background-color:#080; '>text            </span><span style = ' color:#fff;  background-color:#880; '>text            </span><span style = ' color:#fff;  background-color:#088; '>text            </span><span style = ' color:#fff;  background-color:#800; '>text            </span><span style = ' color:#fff;  background-color:#008; '>text            </span><span style = ' color:#fff;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_black    </span><span style = ' color:#000;  background-color:#888; '>text            </span><span style = ' color:#000;  background-color:#000; '>text            </span><span style = ' color:#000;  background-color:#080; '>text            </span><span style = ' color:#000;  background-color:#880; '>text            </span><span style = ' color:#000;  background-color:#088; '>text            </span><span style = ' color:#000;  background-color:#800; '>text            </span><span style = ' color:#000;  background-color:#008; '>text            </span><span style = ' color:#000;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_green    </span><span style = ' color:#0f0;  background-color:#888; '>text            </span><span style = ' color:#0f0;  background-color:#000; '>text            </span><span style = ' color:#0f0;  background-color:#080; '>text            </span><span style = ' color:#0f0;  background-color:#880; '>text            </span><span style = ' color:#0f0;  background-color:#088; '>text            </span><span style = ' color:#0f0;  background-color:#800; '>text            </span><span style = ' color:#0f0;  background-color:#008; '>text            </span><span style = ' color:#0f0;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_yellow   </span><span style = ' color:#ff0;  background-color:#888; '>text            </span><span style = ' color:#ff0;  background-color:#000; '>text            </span><span style = ' color:#ff0;  background-color:#080; '>text            </span><span style = ' color:#ff0;  background-color:#880; '>text            </span><span style = ' color:#ff0;  background-color:#088; '>text            </span><span style = ' color:#ff0;  background-color:#800; '>text            </span><span style = ' color:#ff0;  background-color:#008; '>text            </span><span style = ' color:#ff0;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_cyan     </span><span style = ' color:#0ff;  background-color:#888; '>text            </span><span style = ' color:#0ff;  background-color:#000; '>text            </span><span style = ' color:#0ff;  background-color:#080; '>text            </span><span style = ' color:#0ff;  background-color:#880; '>text            </span><span style = ' color:#0ff;  background-color:#088; '>text            </span><span style = ' color:#0ff;  background-color:#800; '>text            </span><span style = ' color:#0ff;  background-color:#008; '>text            </span><span style = ' color:#0ff;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_red      </span><span style = ' color:#f00;  background-color:#888; '>text            </span><span style = ' color:#f00;  background-color:#000; '>text            </span><span style = ' color:#f00;  background-color:#080; '>text            </span><span style = ' color:#f00;  background-color:#880; '>text            </span><span style = ' color:#f00;  background-color:#088; '>text            </span><span style = ' color:#f00;  background-color:#800; '>text            </span><span style = ' color:#f00;  background-color:#008; '>text            </span><span style = ' color:#f00;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_blue     </span><span style = ' color:#00f;  background-color:#888; '>text            </span><span style = ' color:#00f;  background-color:#000; '>text            </span><span style = ' color:#00f;  background-color:#080; '>text            </span><span style = ' color:#00f;  background-color:#880; '>text            </span><span style = ' color:#00f;  background-color:#088; '>text            </span><span style = ' color:#00f;  background-color:#800; '>text            </span><span style = ' color:#00f;  background-color:#008; '>text            </span><span style = ' color:#00f;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_magenta  </span><span style = ' color:#f0f;  background-color:#888; '>text            </span><span style = ' color:#f0f;  background-color:#000; '>text            </span><span style = ' color:#f0f;  background-color:#080; '>text            </span><span style = ' color:#f0f;  background-color:#880; '>text            </span><span style = ' color:#f0f;  background-color:#088; '>text            </span><span style = ' color:#f0f;  background-color:#800; '>text            </span><span style = ' color:#f0f;  background-color:#008; '>text            </span><span style = ' color:#f0f;  background-color:#808; '>text            </span><span style = ''>
+</span><span style = ''>
+</span><span style = ' color:#fff; '>
+</span><span style = ''>                </span><span style = ' color:#fff; '>on_bright_white </span><span style = ' color:#fff; '>on_bright_black </span><span style = ' color:#fff; '>on_bright_green </span><span style = ' color:#fff; '>on_bright_yellow</span><span style = ' color:#fff; '>on_bright_cyan  </span><span style = ' color:#fff; '>on_bright_red   </span><span style = ' color:#fff; '>on_bright_blue  </span><span style = ' color:#fff; '>on_bright_magent</span><span style = ' color:#fff; '>
+</span><span style = ' color:#fff; '>white           </span><span style = ' color:#888;  background-color:#fff; '>text            </span><span style = ' color:#888;  background-color:#000; '>text            </span><span style = ' color:#888;  background-color:#0f0; '>text            </span><span style = ' color:#888;  background-color:#ff0; '>text            </span><span style = ' color:#888;  background-color:#0ff; '>text            </span><span style = ' color:#888;  background-color:#f00; '>text            </span><span style = ' color:#888;  background-color:#00f; '>text            </span><span style = ' color:#888;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>black           </span><span style = ' color:#000;  background-color:#fff; '>text            </span><span style = ' color:#000;  background-color:#000; '>text            </span><span style = ' color:#000;  background-color:#0f0; '>text            </span><span style = ' color:#000;  background-color:#ff0; '>text            </span><span style = ' color:#000;  background-color:#0ff; '>text            </span><span style = ' color:#000;  background-color:#f00; '>text            </span><span style = ' color:#000;  background-color:#00f; '>text            </span><span style = ' color:#000;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>green           </span><span style = ' color:#080;  background-color:#fff; '>text            </span><span style = ' color:#080;  background-color:#000; '>text            </span><span style = ' color:#080;  background-color:#0f0; '>text            </span><span style = ' color:#080;  background-color:#ff0; '>text            </span><span style = ' color:#080;  background-color:#0ff; '>text            </span><span style = ' color:#080;  background-color:#f00; '>text            </span><span style = ' color:#080;  background-color:#00f; '>text            </span><span style = ' color:#080;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>yellow          </span><span style = ' color:#880;  background-color:#fff; '>text            </span><span style = ' color:#880;  background-color:#000; '>text            </span><span style = ' color:#880;  background-color:#0f0; '>text            </span><span style = ' color:#880;  background-color:#ff0; '>text            </span><span style = ' color:#880;  background-color:#0ff; '>text            </span><span style = ' color:#880;  background-color:#f00; '>text            </span><span style = ' color:#880;  background-color:#00f; '>text            </span><span style = ' color:#880;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>cyan            </span><span style = ' color:#088;  background-color:#fff; '>text            </span><span style = ' color:#088;  background-color:#000; '>text            </span><span style = ' color:#088;  background-color:#0f0; '>text            </span><span style = ' color:#088;  background-color:#ff0; '>text            </span><span style = ' color:#088;  background-color:#0ff; '>text            </span><span style = ' color:#088;  background-color:#f00; '>text            </span><span style = ' color:#088;  background-color:#00f; '>text            </span><span style = ' color:#088;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>red             </span><span style = ' color:#800;  background-color:#fff; '>text            </span><span style = ' color:#800;  background-color:#000; '>text            </span><span style = ' color:#800;  background-color:#0f0; '>text            </span><span style = ' color:#800;  background-color:#ff0; '>text            </span><span style = ' color:#800;  background-color:#0ff; '>text            </span><span style = ' color:#800;  background-color:#f00; '>text            </span><span style = ' color:#800;  background-color:#00f; '>text            </span><span style = ' color:#800;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>blue            </span><span style = ' color:#008;  background-color:#fff; '>text            </span><span style = ' color:#008;  background-color:#000; '>text            </span><span style = ' color:#008;  background-color:#0f0; '>text            </span><span style = ' color:#008;  background-color:#ff0; '>text            </span><span style = ' color:#008;  background-color:#0ff; '>text            </span><span style = ' color:#008;  background-color:#f00; '>text            </span><span style = ' color:#008;  background-color:#00f; '>text            </span><span style = ' color:#008;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>magenta         </span><span style = ' color:#808;  background-color:#fff; '>text            </span><span style = ' color:#808;  background-color:#000; '>text            </span><span style = ' color:#808;  background-color:#0f0; '>text            </span><span style = ' color:#808;  background-color:#ff0; '>text            </span><span style = ' color:#808;  background-color:#0ff; '>text            </span><span style = ' color:#808;  background-color:#f00; '>text            </span><span style = ' color:#808;  background-color:#00f; '>text            </span><span style = ' color:#808;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_white    </span><span style = ' color:#fff;  background-color:#fff; '>text            </span><span style = ' color:#fff;  background-color:#000; '>text            </span><span style = ' color:#fff;  background-color:#0f0; '>text            </span><span style = ' color:#fff;  background-color:#ff0; '>text            </span><span style = ' color:#fff;  background-color:#0ff; '>text            </span><span style = ' color:#fff;  background-color:#f00; '>text            </span><span style = ' color:#fff;  background-color:#00f; '>text            </span><span style = ' color:#fff;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_black    </span><span style = ' color:#000;  background-color:#fff; '>text            </span><span style = ' color:#000;  background-color:#000; '>text            </span><span style = ' color:#000;  background-color:#0f0; '>text            </span><span style = ' color:#000;  background-color:#ff0; '>text            </span><span style = ' color:#000;  background-color:#0ff; '>text            </span><span style = ' color:#000;  background-color:#f00; '>text            </span><span style = ' color:#000;  background-color:#00f; '>text            </span><span style = ' color:#000;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_green    </span><span style = ' color:#0f0;  background-color:#fff; '>text            </span><span style = ' color:#0f0;  background-color:#000; '>text            </span><span style = ' color:#0f0;  background-color:#0f0; '>text            </span><span style = ' color:#0f0;  background-color:#ff0; '>text            </span><span style = ' color:#0f0;  background-color:#0ff; '>text            </span><span style = ' color:#0f0;  background-color:#f00; '>text            </span><span style = ' color:#0f0;  background-color:#00f; '>text            </span><span style = ' color:#0f0;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_yellow   </span><span style = ' color:#ff0;  background-color:#fff; '>text            </span><span style = ' color:#ff0;  background-color:#000; '>text            </span><span style = ' color:#ff0;  background-color:#0f0; '>text            </span><span style = ' color:#ff0;  background-color:#ff0; '>text            </span><span style = ' color:#ff0;  background-color:#0ff; '>text            </span><span style = ' color:#ff0;  background-color:#f00; '>text            </span><span style = ' color:#ff0;  background-color:#00f; '>text            </span><span style = ' color:#ff0;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_cyan     </span><span style = ' color:#0ff;  background-color:#fff; '>text            </span><span style = ' color:#0ff;  background-color:#000; '>text            </span><span style = ' color:#0ff;  background-color:#0f0; '>text            </span><span style = ' color:#0ff;  background-color:#ff0; '>text            </span><span style = ' color:#0ff;  background-color:#0ff; '>text            </span><span style = ' color:#0ff;  background-color:#f00; '>text            </span><span style = ' color:#0ff;  background-color:#00f; '>text            </span><span style = ' color:#0ff;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_red      </span><span style = ' color:#f00;  background-color:#fff; '>text            </span><span style = ' color:#f00;  background-color:#000; '>text            </span><span style = ' color:#f00;  background-color:#0f0; '>text            </span><span style = ' color:#f00;  background-color:#ff0; '>text            </span><span style = ' color:#f00;  background-color:#0ff; '>text            </span><span style = ' color:#f00;  background-color:#f00; '>text            </span><span style = ' color:#f00;  background-color:#00f; '>text            </span><span style = ' color:#f00;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_blue     </span><span style = ' color:#00f;  background-color:#fff; '>text            </span><span style = ' color:#00f;  background-color:#000; '>text            </span><span style = ' color:#00f;  background-color:#0f0; '>text            </span><span style = ' color:#00f;  background-color:#ff0; '>text            </span><span style = ' color:#00f;  background-color:#0ff; '>text            </span><span style = ' color:#00f;  background-color:#f00; '>text            </span><span style = ' color:#00f;  background-color:#00f; '>text            </span><span style = ' color:#00f;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ' color:#fff; '>bright_magenta  </span><span style = ' color:#f0f;  background-color:#fff; '>text            </span><span style = ' color:#f0f;  background-color:#000; '>text            </span><span style = ' color:#f0f;  background-color:#0f0; '>text            </span><span style = ' color:#f0f;  background-color:#ff0; '>text            </span><span style = ' color:#f0f;  background-color:#0ff; '>text            </span><span style = ' color:#f0f;  background-color:#f00; '>text            </span><span style = ' color:#f0f;  background-color:#00f; '>text            </span><span style = ' color:#f0f;  background-color:#f0f; '>text            </span><span style = ''>
+</span><span style = ''>
+</span>
+</pre>
+
+=end html
+
 =head2 Default background color
 
-#todo:
+B<bright_white on_black>
 
 =head1 SUBROUTINES/METHODS
 
@@ -120,7 +153,7 @@ Todo: allow user to add her own generator
 
 #-------------------------------------------------------------------------------
 
-Readonly my $NEW_ARGUMENTS => [qw(NAME INTERACTION VERBOSE JOIN JOIN_FLAT FORMAT DEFAULT_COLOR COLOR RANDOM_COLORS COLORS)] ;
+Readonly my $NEW_ARGUMENTS => [qw(NAME INTERACTION VERBOSE JOIN JOIN_FLAT FORMAT DEFAULT_COLOR COLORS)] ;
 
 sub new
 {
@@ -151,30 +184,27 @@ Useful if you use Data::HexDump::Range in an application without terminal.
 
 Default is B<ANSI> which allows for colors. Other formats are 'ASCII' and 'HTML'.
 
-=item * DEFAULT_COLOR - 
+=item * DEFAULT_COLOR -  the color used if no color is defined
+
+	DEFAULT_COLOR => {ANSI => 'bright_white', HTML => 'color:#aaa; '} ;
 
 =item * COLOR - String 'bw' or 'cycle'.
 
 Ranges for which no color has been defined, in 'ANSI' or 'HTML' format mode, will be rendered in
 black and white or with a color picked from a cyclic color list. Default is 'bw'.
 
-=item * RANDOM_COLORS - Hash reference -
+=item * COLOR_NAMES - A hash reference or a file name
 
-	COLORS =>
+	{
+	HTML =>
 		{
-		ASCII => [],
-		ANSI => ['white', 'bright_green', 'bright_yellow','bright_cyan', 'bright_red' ],
-		HTML => ['white', 'bright_green', 'bright_yellow','bright_cyan', 'bright_red' ],
-		},
-		
-=item * COLOR_NAMES - A hash reference
-
-	COLOR_NAMES => 
-		{
-		HTML =>
-			...
-			
-	     } ;
+		white => "color:#888;",
+		black => "color:#000;",
+		...
+		}
+	ANSI => ...
+	ASCII => ...
+	}
 
 =back
 
@@ -238,17 +268,8 @@ $self->CheckOptionNames(\%valid_argument, @setup_data) ;
 	JOIN_FLAT => $EMPTY_STRING,
 	
 	FORMAT => 'ANSI',
-	COLOR => 'cycle',
+	DEFAULT_COLOR => {ANSI => 'bright_white', HTML => 'color:#fff; '},
 	
-	DEFAULT_COLOR => '',
-	
-	RANDOM_COLORS =>
-		{
-		ASCII => [],
-		ANSI => ['white', 'bright_green', 'bright_yellow','bright_cyan', 'bright_red' ],
-		HTML => ['white', 'bright_green', 'bright_yellow','bright_cyan', 'bright_red' ],
-		},
-		
 	COLORS => 
 		{
 		ANSI =>
@@ -297,16 +318,16 @@ $self->CheckOptionNames(\%valid_argument, @setup_data) ;
 		HTML =>
 			{
 			# any attribute you can put in a span
-			reset => '',
+			reset => $EMPTY_STRING,
 			
-			white => 'color:#888; ',
+			white => 'color:#aaa; ',
 			black => 'color:#000; ',
-			green => 'color:#080; ',
-			yellow => 'color:#880; ',
-			cyan => 'color:#088; ',
-			red => 'color:#800; ',
-			blue => 'color:#008; ',
-			magenta => 'color:#880; ',
+			green => 'color:#0a0; ',
+			yellow => 'color:#aa0; ',
+			cyan => 'color:#0aa; ',
+			red => 'color:#a00; ',
+			blue => 'color:#00a; ',
+			magenta => 'color:#a0a; ',
 			
 			bright_white => 'color:#fff; ',
 			bright_black => 'color:#000; ',
@@ -315,16 +336,16 @@ $self->CheckOptionNames(\%valid_argument, @setup_data) ;
 			bright_cyan => 'color:#0ff; ',
 			bright_red => 'color:#f00; ',
 			bright_blue => 'color:#00f; ',
-			bright_magenta => 'color:#ff0; ',
+			bright_magenta => 'color:#f0f; ',
 
-			on_white => 'background-color:#888; ',
+			on_white => 'background-color:#aaa; ',
 			on_black => 'background-color:#000; ',
-			on_green => 'background-color:#080; ',
-			on_yellow => 'background-color:#880; ',
-			on_cyan => 'background-color:#088; ',
-			on_red => 'background-color:#800; ',
-			on_blue => 'background-color:#008; ',
-			on_magenta => 'background-color:#880; ',
+			on_green => 'background-color:#0a0; ',
+			on_yellow => 'background-color:#aa0; ',
+			on_cyan => 'background-color:#0aa; ',
+			on_red => 'background-color:#a00; ',
+			on_blue => 'background-color:#00a; ',
+			on_magenta => 'background-color:#a0a; ',
 			
 			on_bright_white => 'background-color:#fff; ',
 			on_bright_black => 'background-color:#000; ',
@@ -333,7 +354,7 @@ $self->CheckOptionNames(\%valid_argument, @setup_data) ;
 			on_bright_cyan => 'background-color:#0ff; ',
 			on_bright_red => 'background-color:#f00; ',
 			on_bright_blue => 'background-color:#00f; ',
-			on_bright_magenta => 'background-color:#ff0; ',
+			on_bright_magenta => 'background-color:#f0f; ',
 			},
 		},
 
@@ -351,7 +372,18 @@ if($self->{VERBOSE})
 	$self->{INTERACTION}{INFO}('Creating ' . ref($self) . " '$self->{NAME}' at $location.\n") ;
 	}
 
-return(1) ;
+if('HASH' ne ref $self->{COLORS})
+	{
+	my $colors = do $self->{COLORS} 
+		or  $self->{INTERACTION}{DIE}("Can't load color file '$self->{COLORS}'.\n") ;
+		
+	'HASH' eq ref $colors
+		or  $self->{INTERACTION}{DIE}("Invalid color file '$self->{COLORS}'.\n") ;
+	
+	$self->{COLORS} = $colors ;
+	}
+
+return ;
 }
 
 #-------------------------------------------------------------------------------
@@ -434,7 +466,7 @@ return $self->{COLORS} ;
 
 #-------------------------------------------------------------------------------
 
-sub set_colors()
+sub set_colors
 {
 
 =head2 set_colors(\%colors)
@@ -442,7 +474,7 @@ sub set_colors()
 Copies 
 
   my %colors =
-  	{
+  	(
  	HTML =>
  		{
 		white => "style='color:#888;'",
@@ -453,7 +485,7 @@ Copies
 		bright_green => "style='color:#0f0;'",
 		...
 		}
-	},
+	) ;
 	
   $c->set_color(\%colors) ;
 
@@ -480,7 +512,7 @@ return ;
 
 #-------------------------------------------------------------------------------
 
-sub flatten 
+sub flatten ## no critic (Subroutines::RequireArgUnpacking)
 { 
 	
 =head2 [P] flatten($scalar || \@array)
@@ -499,19 +531,20 @@ I<Returns> - a lsit of scalars
 
 =cut
 
-map 
-	{
-	my  $description = $_ ;
-	
-	if(ref($description) eq 'ARRAY')
+return 
+	map 
 		{
-		flatten(@{$description}) ;
-		}
-	else
-		{
-		$description
-		}
-	} @_ 
+		my  $description = $_ ;
+		
+		if(ref($description) eq 'ARRAY')
+			{
+			flatten(@{$description}) ;
+			}
+		else
+			{
+			$description
+			}
+		} @_  ;
 }
 
 #-------------------------------------------------------------------------------
@@ -519,7 +552,7 @@ map
 sub color
 {
 
-=head2 $c->color($color_name, $text, $color_name, \@many_text_strings, ...) ;
+=head2 color($color_name, $text, $color_name, \@many_text_strings, ...) ;
 
 Returns colored text. according to the object setting. Default is HTML color coded.
 
@@ -546,29 +579,55 @@ I<Exceptions> - Dies if the color is invalid
 
 =cut
 
-my ($self) = shift @_ ;
+my ($self, @colors_and_text) = @_ ;
 
-my ($header, $footer, $colorizer)  = ('', '') ;
+my ($header, $footer, $colorizer)  = ($EMPTY_STRING, $EMPTY_STRING) ;
+
+my %ascii_to_html =
+	(
+	q{<} => '&lt;',
+	q{>} => '&gt;',
+	q{&} => '&amp;',
+	q{'} => '&apos;',
+	q{"} => '&quot;',
+	) ;
 
 for ($self->{FORMAT})
 	{
-	/ASCII/ and do
+	/ASCII/xsm and do
 		{
-		#todo flatten and return
-		return 'ASCII has no colors!' ;
-		} ;
-		
-	/ANSI/ and do
-		{
-		$colorizer = sub { my ($text, $color) = @_ ; (defined $color && $color ne '') ? colored($text, $color) : $text ; } ;
+		$colorizer = 
+			sub 
+				{
+				#~ my ($text, $color) = @_ ; 
+				#~ return $text ;
+				
+				$_[0] ;
+				} ;
 			
 		last ;
 		} ;
 		
-	/HTML/ and do
+	/ANSI/xsm and do
+		{
+		$colorizer = sub { my ($text, $color) = @_ ; (defined $color && $color ne $EMPTY_STRING) ? colored($text, $color) : $text ; } ;
+			
+		last ;
+		} ;
+		
+	/HTML/xsm and do
 		{
 		$header = qq~<pre style ="font-family: monospace; background-color: #000 ;">\n~ ;
-		$colorizer = sub { my ($text, $color) = @_ ; "<span style = '$color'>" . $text . "</span>" ;} ;
+		$colorizer = 
+			sub 
+			{ 
+			my ($text, $color) = @_ ; 
+			
+			$text =~ s/(<|>|&|\'|\")/$ascii_to_html{$1}/xsmeg ;
+			
+			"<span style = '$color'>" . $text . '</span>' ;
+			} ;
+			
 		$footer .= "\n</pre>\n" ;
 		
 		last ;
@@ -577,26 +636,29 @@ for ($self->{FORMAT})
 	$self->{INTERACTION}{DIE}("Error: Invalid format '$self->{FORMAT}'.\n");
 	}
 
-$self->{INTERACTION}{DIE}("Error: number of elements in argument list'.\n") if @_ % 2 ;
+$self->{INTERACTION}{DIE}("Error: number of elements in argument list'.\n") if @colors_and_text % 2 ;
 
 my @formated ;
 
-while(@_)
+while(@colors_and_text)
 	{
-	my ($color_tag, $text) = (shift, shift) ;
-	my $colors = '' ;
+	my ($color_tag, $text) = (shift @colors_and_text, shift @colors_and_text) ;
+	my $colors = $self->{DEFAULT_COLOR}{$self->{FORMAT}} ;
 	
-	for my $color_tag_component (split /\s+/, $color_tag)
+	if(defined $color_tag && $self->{FORMAT} ne 'ASCII')
 		{
-		$color_tag_component =~ s/\s+//g ;
-		
-		my $color = $self->{COLORS}{$self->{FORMAT}}{$color_tag_component} ;
-		
-		$self->{INTERACTION}{DIE}("Error: Invalid color componenent '$self->{FORMAT}::$color_tag_component'.\n") unless defined $color ;
-		
-		$colors .= ' ' . $color ;
+		for my $color_tag_component (split /\s+/xsm, $color_tag) 
+			{
+			$color_tag_component =~ s/\s+//gxsm ;
+			
+			my $color = $self->{COLORS}{$self->{FORMAT}}{$color_tag_component} ;
+			
+			$self->{INTERACTION}{DIE}("Error: Invalid color componenent '$self->{FORMAT}::$color_tag_component'.\n") unless defined $color ;
+			
+			$colors .= q{ } . $color ;
+			}
 		}
-	
+		
 	push @formated, join $self->{JOIN_FLAT}, map {$colorizer->($_, $colors)} flatten($text) ;
 	}
 
@@ -605,7 +667,7 @@ return $header . join($self->{JOIN}, @formated) . $footer ;
 
 #-------------------------------------------------------------------------------
 
-sub color_all
+sub color_all ## no critic (Subroutines::RequireArgUnpacking)
 {
 
 =head2 color_all($color, $string, \@many_text_strings, ...)
@@ -630,14 +692,12 @@ I<Exceptions>
 
 my ($self, $color) = (shift @_, shift @_) ;
 
-#todo: verify colors
-
 return $self->color(map{$color, $_} @_) ;
 }
 
 #-------------------------------------------------------------------------------
 
-sub color_with
+sub color_with ## no critic (Subroutines::RequireArgUnpacking)
 {
 
 =head2 color_with(\%color_definitions, 'color' => 'text', $color => \@many_text_strings, ...) ;
@@ -685,13 +745,13 @@ I<Exceptions> -  Dies if  any argument is invalid
 
 my ($self, $colors) = (shift @_, shift @_) ;
 
-local $self->{COLORS} = $colors ;
+local $self->{COLORS} = $colors ; ## no critic (Variables::ProhibitLocalVars)
 return $self->color(@_) ;
 }
 
 #-------------------------------------------------------------------------------
 
-sub color_all_with
+sub color_all_with ## no critic (Subroutines::RequireArgUnpacking)
 {
 
 =head2 color_all_with($temporary_colors, $color, $text | \@many_text_string, ...) ;
@@ -728,6 +788,10 @@ I<Exceptions> Dies if invalid input is received
 
 =cut
 
+my ($self, $colors) = (shift @_, shift @_) ;
+
+local $self->{COLORS} = $colors ; ## no critic (Variables::ProhibitLocalVars)
+return $self->color_all(@_) ;
 }
 
 #-------------------------------------------------------------------------------
@@ -744,7 +808,7 @@ None so far.
 	CPAN ID: NKH
 	mailto: nadim@cpan.org
 
-=head1 COPYRIGHT & LICENSE
+=head1 COPYRIGHT AND LICENSE
 
 Copyright 2010 Nadim Khemir.
 

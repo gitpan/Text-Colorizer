@@ -1,0 +1,11 @@
+commit 79d2d8ba2e91d6714be97e8a004ef1d57fbc972b (HEAD, master)
+Author: nadim khemir <nkh@cpan.org>
+Date:   Mon Apr 26 20:49:23 2010 +0200
+
+    CHANGED: cleaned up code to pass more author_test
+
+commit 51134c9ce488c478e0274d33f91c61748dd6debe
+Author: nadim khemir <nkh@cpan.org>
+Date:   Mon Apr 26 00:39:07 2010 +0200
+
+    ADDED: INITIAL COMMIT
